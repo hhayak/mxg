@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1097896231534",
+    "project_id": "mxg-weight",
+    "storage_bucket": "mxg-weight.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1097896231534:android:1ac3e0d5ac5826058e5c7f",
+        "android_client_info": {
+          "package_name": "com.mxg.mxg"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1097896231534-ak7fguiq3vnrba93o2df1aflrgjsr68g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mxg.mxg",
+            "certificate_hash": "6ce88e10551781ddac9e599618c31efa1e45fc5d"
+          }
+        },
+        {
+          "client_id": "1097896231534-ca2k25r4vomlouve7cic749dtgettonr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDgj0k0CyK86b_SJ2LdTLaF6kAr_4XBfww"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1097896231534-ca2k25r4vomlouve7cic749dtgettonr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
