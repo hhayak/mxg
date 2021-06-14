@@ -1,8 +1,16 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthService {
-  Future<User?> getCurrentUser() async {
+  User? getCurrentUser() {
     return FirebaseAuth.instance.currentUser;
+  }
+
+  Future<void> reload() {
+    return FirebaseAuth.instance.currentUser?.reload() ?? Future.microtask(() => null);
+  }
+
+  Stream<User?> authChanges() {
+    return FirebaseAuth.instance.authStateChanges();
   }
 
   Future<User?> login(String email, String password) async {

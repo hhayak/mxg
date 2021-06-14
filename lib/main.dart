@@ -6,7 +6,7 @@ import 'package:mxg/services/services.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await initServices(false);
+  await initServices(true);
   runApp(MyApp());
 }
 
@@ -20,6 +20,7 @@ class MyApp extends StatelessWidget {
       localizationsDelegates: getIt<LocalizationService>().localizationsDelegates,
       supportedLocales: getIt<LocalizationService>().supportedLocales,
       theme: lightTheme,
+      darkTheme: darkTheme,
       home: LoginPage(),
     );
   }
