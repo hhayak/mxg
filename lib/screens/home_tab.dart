@@ -136,15 +136,24 @@ class AnimatedRecentEntries extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedStreamList<WeightEntry>(
-        streamList: _stream,
-        initialList: initialData,
-        shrinkWrap: true,
-        scrollPhysics: BouncingScrollPhysics(),
-        equals: (a, b) => equal(a, b),
-        itemBuilder: (item, index, context, animation) =>
-            _createTile(item, animation),
-        itemRemovedBuilder: (item, index, context, animation) =>
-            _createTile(item, animation));
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        TextTitle(text: 'Recent'),
+        initialData.isEmpty
+            ? NoDataAvailable()
+            : AnimatedStreamList<WeightEntry>(
+    streamList: _stream,
+    initialList: initialData,
+    shrinkWrap: true,
+    scrollPhysics: NeverScrollableScrollPhysics(),
+    equals: (a, b) => equal(a, b),
+    itemBuilder: (item, index, context, animation) =>
+    _createTile(item, animation),
+    itemRemovedBuilder: (item, index, context, animation) =>
+    _createTile(item, animation)),
+      ],
+    );
   }
 }
