@@ -18,7 +18,7 @@ Future<void> initServices(bool useEmulator) async {
         : 'localhost:8080';
     FirebaseFirestore.instance.settings =
         Settings(host: host, sslEnabled: false);
-    //await FirebaseAuth.instance.useEmulator('http://localhost:9099');
+    await FirebaseAuth.instance.useEmulator('http://localhost:9099');
   }
 
   getIt.registerSingleton<NavigationService>(NavigationService());
@@ -27,15 +27,14 @@ Future<void> initServices(bool useEmulator) async {
       NotificationService(getIt<NavigationService>().navigatorKey));
 
   getIt.registerSingleton<AuthService>(AuthService());
-  await getIt<AuthService>().reload();
   getIt.registerSingleton<UserService>(UserService(FirebaseFirestore.instance));
-  getIt.registerSingleton<WeightEntryService>(WeightEntryService(
-      FirebaseFirestore.instance, FirebaseAuth.instance.currentUser?.uid));
 
   getIt<AuthService>().authChanges().listen((user) {
     if (user != null) {
       print('Binding WeightEntryService to ${user.uid}');
-      getIt<WeightEntryService>().setUid(user.uid);
+      getIt.registerSingleton<WeightEntryService>(
+          WeightEntryService(FirebaseFirestore.instance, user.uid));
     }
   });
+  await getIt<AuthService>().reload();
 }

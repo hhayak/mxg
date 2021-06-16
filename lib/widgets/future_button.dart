@@ -18,8 +18,9 @@ class FutureButton extends StatelessWidget {
   final IconData? icon;
   final String? text;
   final double? width;
+  final Color? color;
   final double height;
-  final Function()? onPressed;
+  final VoidCallback? onPressed;
 
   FutureButton({
     required this.controller,
@@ -27,6 +28,7 @@ class FutureButton extends StatelessWidget {
     this.icon,
     this.text,
     this.width,
+    this.color,
     this.height = 40,
   });
 
@@ -37,7 +39,9 @@ class FutureButton extends StatelessWidget {
       onPressed: onPressed,
       height: height,
       width: text != null ? width ?? 100 : 40,
-      color: Theme.of(context).buttonColor,
+      color: color ?? Theme.of(context).buttonColor,
+      borderRadius: 10,
+      elevation: 1,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,

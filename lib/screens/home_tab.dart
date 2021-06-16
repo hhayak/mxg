@@ -7,6 +7,7 @@ import 'package:mxg/widgets/flat_card.dart';
 import 'package:mxg/widgets/text_title.dart';
 import 'package:mxg/widgets/weight_entry_list.dart';
 import 'package:animated_stream_list/animated_stream_list.dart';
+import 'package:provider/provider.dart';
 
 class HomeTab extends StatelessWidget {
   final Future<List<WeightEntry>> future =
@@ -18,23 +19,9 @@ class HomeTab extends StatelessWidget {
       physics: BouncingScrollPhysics(),
       child: Padding(
         padding: const EdgeInsets.only(top: 60, left: 10, right: 10),
-        child: FutureBuilder<List<WeightEntry>>(
-            future: future,
-            builder: (context, snapshot) {
-              if (snapshot.hasError) {
-                return Center(
-                  child: Text('Could not retrieve entries.'),
-                );
-              }
-              if (snapshot.connectionState == ConnectionState.done) {
-                return AnimatedRecentEntries(
-                  initialData: snapshot.data!,
-                );
-              }
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            }),
+        child: ConsumerRecentEntries(
+          // TODO: add skeleton loading
+        ),
       ),
     );
   }
@@ -79,7 +66,7 @@ class NoDataAvailable extends StatelessWidget {
 
 class RecentEntries extends StatelessWidget {
   final Stream<List<WeightEntry>> _stream =
-      getIt<WeightEntryService>().getUserWeightEntryStream();
+      getIt<WeightEntryService>().getOrderedStream();
   final List<WeightEntry> initialData;
 
   RecentEntries({Key? key, required this.initialData}) : super(key: key);
@@ -114,9 +101,33 @@ class RecentEntries extends StatelessWidget {
   }
 }
 
+class ConsumerRecentEntries extends StatelessWidget {
+
+  ConsumerRecentEntries({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<List<WeightEntry>>(
+        builder: (context, snapshot, child) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextTitle(text: 'Recent'),
+              snapshot.isEmpty
+                  ? NoDataAvailable()
+                  : WeightEntryList(
+                entries: snapshot,
+              ),
+            ],
+          );
+        });
+  }
+}
+
 class AnimatedRecentEntries extends StatelessWidget {
   final Stream<List<WeightEntry>> _stream =
-      getIt<WeightEntryService>().getUserWeightEntryStream();
+      getIt<WeightEntryService>().getStream();
   final List<WeightEntry> initialData;
 
   AnimatedRecentEntries({Key? key, required this.initialData})

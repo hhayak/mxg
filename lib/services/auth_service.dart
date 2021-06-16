@@ -5,8 +5,16 @@ class AuthService {
     return FirebaseAuth.instance.currentUser;
   }
 
-  Future<void> reload() {
-    return FirebaseAuth.instance.currentUser?.reload() ?? Future.microtask(() => null);
+  Future<void> reload() async {
+    var user = FirebaseAuth.instance.currentUser;
+    try {
+      if (user != null) {
+        await user.reload();
+      }
+    }
+    catch (e) {
+      print(e);
+    }
   }
 
   Stream<User?> authChanges() {

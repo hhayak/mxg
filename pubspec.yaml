@@ -37,6 +37,8 @@ dependencies:
   animated_stream_list:
     git:
       url: https://github.com/hhayak/animated-stream-list
+  fl_chart: ^0.36.1
+  provider: ^5.0.0
 
 
 dev_dependencies:

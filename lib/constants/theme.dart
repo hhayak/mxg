@@ -9,6 +9,7 @@ final lightTheme = ThemeData(
   inputDecorationTheme: inputDecorationTheme,
   buttonColor: Colors.teal,
   elevatedButtonTheme: elevatedButtonTheme,
+  outlinedButtonTheme: outlinedButtonTheme,
 );
 
 final darkTheme = ThemeData(
@@ -20,6 +21,7 @@ final darkTheme = ThemeData(
   inputDecorationTheme: inputDecorationTheme,
   buttonColor: Colors.teal,
   elevatedButtonTheme: elevatedButtonTheme,
+  outlinedButtonTheme: outlinedButtonTheme,
 );
 
 final inputDecorationTheme = InputDecorationTheme(
@@ -33,6 +35,17 @@ final inputDecorationTheme = InputDecorationTheme(
 
 final elevatedButtonTheme = ElevatedButtonThemeData(
   style: ElevatedButton.styleFrom(
+    minimumSize: Size(100, 40),
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.all(
+        Radius.circular(10),
+      ),
+    ),
+  ),
+);
+
+final outlinedButtonTheme = OutlinedButtonThemeData(
+  style: OutlinedButton.styleFrom(
     minimumSize: Size(100, 40),
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.all(

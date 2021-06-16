@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mxg/models/weight_entry.dart';
+import 'package:mxg/services/services.dart';
+import 'package:mxg/widgets/future_button.dart';
+import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 import 'flat_card.dart';
 
@@ -28,6 +31,48 @@ class WeightEntryTile extends StatelessWidget {
 
   const WeightEntryTile({Key? key, required this.entry}) : super(key: key);
 
+  void showModalSheet(BuildContext context) {
+    var _btnController = RoundedLoadingButtonController();
+    showModalBottomSheet(
+        context: context,
+        useRootNavigator: true,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(10),
+            topRight: Radius.circular(10),
+          ),
+        ),
+        builder: (context) => SizedBox(
+              height: 200,
+              child: Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    FutureButton(
+                      controller: _btnController,
+                      text: 'Delete',
+                      color: Colors.red.shade500,
+                      onPressed: () async {
+                        await getIt<WeightEntryService>()
+                            .deleteWeightEntry(entry.id);
+                        getIt<NavigationService>().pop();
+                      },
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    OutlinedButton(
+                      onPressed: getIt<NavigationService>().pop,
+                      child: Text('Cancel'),
+                    ),
+                  ],
+                ),
+              ),
+            ));
+  }
+
   @override
   Widget build(BuildContext context) {
     return FlatCard.filled(
@@ -43,6 +88,7 @@ class WeightEntryTile extends StatelessWidget {
       ),
       color: Colors.white,
       elevated: true,
+      onTap: () => showModalSheet(context),
     );
   }
 }

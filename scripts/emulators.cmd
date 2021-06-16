@@ -1,1 +1,1 @@
-firebase emulators:start --only firestore --import=./data --export-on-exit
+firebase emulators:start --import=./data --export-on-exit
