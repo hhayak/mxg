@@ -6,7 +6,6 @@ import 'package:mxg/screens/profile_tab.dart';
 import 'package:mxg/screens/progress_tab.dart';
 import 'package:mxg/services/all_services.dart';
 import 'package:mxg/services/services.dart';
-import 'package:mxg/widgets/weight_entry_dialog.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
 
@@ -21,11 +20,6 @@ class _HomePageState extends State<HomePage> {
   void logout() {
     getIt<AuthService>().logout();
     getIt<NavigationService>().push(Routes.login, clear: true);
-  }
-
-  Future<void> showWeightEntryDialog() async {
-    showDialog<WeightEntry>(
-        context: context, builder: (context) => WeightEntryDialog());
   }
 
   @override
@@ -76,7 +70,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
         floatingActionButton: FloatingActionButton(
-          onPressed: showWeightEntryDialog,
+          onPressed: () => getIt<NavigationService>().showWeightEntryDialog(),
           child: Icon(Icons.add),
           elevation: 2,
         ),

@@ -40,7 +40,8 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Future<User?> checkSession() async {
-    var user = await getIt<AuthService>().getCurrentUser();
+    await getIt<AuthService>().reload();
+    var user = getIt<AuthService>().getCurrentUser();
     if (user != null) {
       getIt<NavigationService>().push(Routes.home, clear: true);
     }

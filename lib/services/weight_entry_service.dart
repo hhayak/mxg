@@ -5,19 +5,14 @@ import 'package:mxg/models/weight_entry.dart';
 
 class WeightEntryService {
   final FirebaseFirestore _firestore;
-  late final CollectionReference<WeightEntry> _collection;
-  final String uid;
+  late CollectionReference<WeightEntry> _collection;
+  late String uid;
 
-  WeightEntryService(this._firestore, this.uid) {
-    _setCollection(uid);
-  }
+  WeightEntryService(this._firestore);
 
-  void setUid(String nuid) {
-    _setCollection(nuid);
-  }
-
-  void _setCollection(String uid) {
-    var path = 'users/$uid/weight_entries';
+  void bind(String nuid) {
+    uid = nuid;
+    var path = 'users/$nuid/weight_entries';
     _collection = _firestore.collection(path).withConverter<WeightEntry>(
       fromFirestore: (snapshot, _) =>
           WeightEntry.fromJson(snapshot.data()!),

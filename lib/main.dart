@@ -6,7 +6,7 @@ import 'package:mxg/services/services.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await initServices(true);
+  await initServices(String.fromEnvironment('env', defaultValue: 'dev'));
   runApp(MyApp());
 }
 

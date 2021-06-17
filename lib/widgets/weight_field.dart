@@ -217,6 +217,7 @@ class WeightSliderInternal extends StatelessWidget {
   bool _userStoppedScrolling(Notification notification) {
     return notification is UserScrollNotification &&
         notification.direction == ScrollDirection.idle &&
+        // ignore: invalid_use_of_visible_for_testing_member, invalid_use_of_protected_member
         scrollController.position.activity is! HoldScrollActivity;
   }
 
@@ -246,7 +247,7 @@ class WeightSliderInternal extends StatelessWidget {
         _animateTo(middleValue);
       }
 
-      if (middleValue != value && onChange != null) {
+      if (middleValue != value) {
         onChange(middleValue);
       }
     }

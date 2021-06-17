@@ -28,7 +28,7 @@ class SignupPage extends StatelessWidget {
         var user = await getIt<AuthService>().signup(
             form.control('email').value.toString().trim(), form.control('password').value);
         if (user != null) {
-          var mxgUser = MxgUser(user.uid, 'f', 'l');
+          var mxgUser = MxgUser(user.uid, 'f', 'l', null);
           getIt<UserService>().addUser(mxgUser);
           getIt<NavigationService>().push(Routes.home, clear: true);
         }

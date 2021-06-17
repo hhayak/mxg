@@ -1,6 +1,8 @@
+import 'package:mxg/models/weight_entry.dart';
 import 'package:mxg/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:collection/collection.dart';
+import 'package:mxg/widgets/weight_entry_dialog.dart';
 
 class NavigationService {
   final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -35,6 +37,11 @@ class NavigationService {
 
   void pop([Object? result]) {
     navigatorKey.currentState!.pop(result);
+  }
+
+  Future<void> showWeightEntryDialog() async {
+    showDialog<WeightEntry>(
+        context: navigatorKey.currentContext!, builder: (context) => WeightEntryDialog());
   }
 }
 

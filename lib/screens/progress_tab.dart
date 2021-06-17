@@ -12,8 +12,13 @@ class ProgressTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<List<WeightEntry>>(
       builder: (context, snapshot, child) {
-        if (snapshot.isEmpty) {
-          return Center(child: NoDataAvailable());
+        if (snapshot.isEmpty || snapshot.length < 3) {
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              NoDataAvailable(),
+            ],
+          );
         } else {
           return Padding(
             padding: const EdgeInsets.all(8.0),
@@ -24,8 +29,11 @@ class ProgressTab extends StatelessWidget {
                 FlatCard.filled(
                   height: 400,
                   color: Colors.indigo.withOpacity(0.5),
-                  child: ProgressChart(
-                    entries: snapshot,
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 10),
+                    child: ProgressChart(
+                      entries: snapshot,
+                    ),
                   ),
                 ),
               ],

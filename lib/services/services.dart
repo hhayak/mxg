@@ -9,9 +9,9 @@ export 'all_services.dart';
 
 final getIt = GetIt.instance;
 
-Future<void> initServices(bool useEmulator) async {
+Future<void> initServices(String env) async {
   await Firebase.initializeApp();
-  if (useEmulator) {
+  if (env == 'dev') {
     print('Using Emulators');
     String host = defaultTargetPlatform == TargetPlatform.android
         ? '10.0.2.2:8080'
@@ -28,13 +28,14 @@ Future<void> initServices(bool useEmulator) async {
 
   getIt.registerSingleton<AuthService>(AuthService());
   getIt.registerSingleton<UserService>(UserService(FirebaseFirestore.instance));
+  getIt.registerSingleton<WeightEntryService>(
+      WeightEntryService(FirebaseFirestore.instance));
 
   getIt<AuthService>().authChanges().listen((user) {
     if (user != null) {
       print('Binding WeightEntryService to ${user.uid}');
-      getIt.registerSingleton<WeightEntryService>(
-          WeightEntryService(FirebaseFirestore.instance, user.uid));
+      getIt<WeightEntryService>().bind(user.uid);
+      getIt<UserService>().bind(user.uid);
     }
   });
-  await getIt<AuthService>().reload();
 }

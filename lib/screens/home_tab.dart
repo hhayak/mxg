@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mxg/models/weight_entry.dart';
 import 'package:mxg/services/services.dart';
-import 'package:mxg/services/user_service.dart';
 import 'package:mxg/services/weight_entry_service.dart';
 import 'package:mxg/widgets/flat_card.dart';
 import 'package:mxg/widgets/text_title.dart';
@@ -36,6 +35,7 @@ class NoDataAvailable extends StatelessWidget {
       color: Colors.orangeAccent.withOpacity(0.5),
       child: Center(
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             Align(
               alignment: Alignment.centerLeft,
@@ -47,14 +47,7 @@ class NoDataAvailable extends StatelessWidget {
               alignment: Alignment.centerRight,
               child: TextButton(
                 child: Text('Add weight entry'),
-                onPressed: () async {
-                  var entry =
-                      WeightEntry(id: '0', weight: 67, date: DateTime.now());
-                  await getIt<WeightEntryService>().addWeightEntry(entry);
-                  var user = await getIt<UserService>()
-                      .getUser(getIt<AuthService>().getCurrentUser()!.uid);
-                  print(user!.toJson());
-                },
+                onPressed: () => getIt<NavigationService>().showWeightEntryDialog(),
               ),
             ),
           ],
