@@ -9,16 +9,18 @@ class UserService {
   late final String uid;
 
   UserService(this.firestore) {
-    collection = firestore.collection('users').withConverter<MxgUser>(fromFirestore: (snapshot, _) =>
-        MxgUser.fromJson(snapshot.data()!),
-      toFirestore: (entry, _) => entry.toJson(),);
+    collection = firestore.collection('users').withConverter<MxgUser>(
+          fromFirestore: (snapshot, _) => MxgUser.fromJson(snapshot.data()!),
+          toFirestore: (entry, _) => entry.toJson(),
+        );
   }
 
   void bind(String nuid) {
     uid = nuid;
-    userDoc = collection.doc(nuid).withConverter<MxgUser>(fromFirestore: (snapshot, _) =>
-        MxgUser.fromJson(snapshot.data()!),
-      toFirestore: (entry, _) => entry.toJson(),);
+    userDoc = collection.doc(nuid).withConverter<MxgUser>(
+          fromFirestore: (snapshot, _) => MxgUser.fromJson(snapshot.data()!),
+          toFirestore: (entry, _) => entry.toJson(),
+        );
   }
 
   Future<void> addUser(MxgUser user) {

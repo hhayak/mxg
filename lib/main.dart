@@ -17,7 +17,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'MxG',
       navigatorKey: getIt<NavigationService>().navigatorKey,
-      localizationsDelegates: getIt<LocalizationService>().localizationsDelegates,
+      localizationsDelegates:
+          getIt<LocalizationService>().localizationsDelegates,
       supportedLocales: getIt<LocalizationService>().supportedLocales,
       theme: lightTheme,
       darkTheme: darkTheme,

@@ -15,6 +15,7 @@ class WeightEntry {
   static DateTime fromTimestamp(Timestamp date) => date.toDate();
 
   WeightEntry({required this.weight, required this.id, required this.date});
-  factory WeightEntry.fromJson(Map<String, dynamic> json) => _$WeightEntryFromJson(json);
+  factory WeightEntry.fromJson(Map<String, dynamic> json) =>
+      _$WeightEntryFromJson(json);
   Map<String, dynamic> toJson() => _$WeightEntryToJson(this);
 }

@@ -21,8 +21,10 @@ class Reminder {
 
   Reminder(this.id, this.frequency, this.time);
 
-  static Map<String, dynamic> timeToJson(TimeOfDay e) => {'hour': e.hour, 'minute': e.minute};
-  static TimeOfDay timeFromJson(Map<String, dynamic> map) => TimeOfDay(hour: map['hour'], minute: map['minute']);
+  static Map<String, dynamic> timeToJson(TimeOfDay e) =>
+      {'hour': e.hour, 'minute': e.minute};
+  static TimeOfDay timeFromJson(Map<String, dynamic> map) =>
+      TimeOfDay(hour: map['hour'], minute: map['minute']);
 
   @override
   String toString() {

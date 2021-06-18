@@ -11,9 +11,9 @@ class NavigationService {
 
   Future<dynamic> push(String routeName,
       {Object? arguments,
-        bool replace = false,
-        bool fade = false,
-        bool clear = false}) {
+      bool replace = false,
+      bool fade = false,
+      bool clear = false}) {
     var page = AppRouter.generatePage(routeName, arguments);
     Route route;
     if (fade) {
@@ -41,7 +41,8 @@ class NavigationService {
 
   Future<void> showWeightEntryDialog() async {
     showDialog<WeightEntry>(
-        context: navigatorKey.currentContext!, builder: (context) => WeightEntryDialog());
+        context: navigatorKey.currentContext!,
+        builder: (context) => WeightEntryDialog());
   }
 }
 
@@ -50,7 +51,7 @@ class _NavigationHistory {
 
   Route? getRoute(String name) {
     var historyEntry =
-    history.lastWhereOrNull((element) => element.name == name);
+        history.lastWhereOrNull((element) => element.name == name);
     return historyEntry?.route;
   }
 
@@ -90,21 +91,21 @@ class FadeRoute extends PageRouteBuilder {
 
   FadeRoute({required this.page})
       : super(
-    pageBuilder: (
-        BuildContext context,
-        Animation<double> animation,
-        Animation<double> secondaryAnimation,
-        ) =>
-    page,
-    transitionsBuilder: (
-        BuildContext context,
-        Animation<double> animation,
-        Animation<double> secondaryAnimation,
-        Widget child,
-        ) =>
-        FadeTransition(
-          opacity: animation,
-          child: child,
-        ),
-  );
+          pageBuilder: (
+            BuildContext context,
+            Animation<double> animation,
+            Animation<double> secondaryAnimation,
+          ) =>
+              page,
+          transitionsBuilder: (
+            BuildContext context,
+            Animation<double> animation,
+            Animation<double> secondaryAnimation,
+            Widget child,
+          ) =>
+              FadeTransition(
+            opacity: animation,
+            child: child,
+          ),
+        );
 }

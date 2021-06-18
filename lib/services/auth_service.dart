@@ -11,8 +11,7 @@ class AuthService {
       if (user != null) {
         await user.reload();
       }
-    }
-    catch (e) {
+    } catch (e) {
       print(e);
     }
   }
@@ -24,9 +23,10 @@ class AuthService {
   Future<User?> login(String email, String password) async {
     try {
       print('Logging in with: $email, $password');
-      UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: email,
-          password: password,
+      UserCredential userCredential =
+          await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email,
+        password: password,
       );
       return userCredential.user;
     } on FirebaseAuthException catch (e) {
@@ -43,9 +43,10 @@ class AuthService {
 
   Future<User?> signup(String email, String password) async {
     try {
-      UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: email,
-          password: password,
+      UserCredential userCredential =
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
       );
       return userCredential.user;
     } on FirebaseAuthException catch (e) {

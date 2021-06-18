@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:mxg/screens/screens.dart';
 
-
 class Routes {
   static const String root = '/';
   static const String login = 'login';
   static const String signup = 'signup';
   static const String home = 'home';
-
 }
 
 class AppRouter {

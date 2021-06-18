@@ -25,8 +25,7 @@ class WeightEntryDialog extends StatelessWidget {
           id: '0', weight: weightControl.value!, date: dateControl.value!);
       await getIt<WeightEntryService>().addWeightEntry(newEntry);
       getIt<NavigationService>().pop(newEntry);
-    }
-    else {
+    } else {
       _btnController.stop();
     }
   }

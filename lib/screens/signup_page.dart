@@ -14,19 +14,22 @@ class SignupPage extends StatelessWidget {
       RoundedLoadingButtonController();
   final FormGroup form = FormGroup(
     {
-      'email': FormControl<String>(
-          validators: [Validators.email]),
+      'email': FormControl<String>(validators: [Validators.email]),
       'password': FormControl<String>(),
       'confirmPassword': FormControl<String>(),
     },
-    validators: [Validators.mustMatch('password', 'confirmPassword'), Validators.required],
+    validators: [
+      Validators.mustMatch('password', 'confirmPassword'),
+      Validators.required
+    ],
   );
 
   Future<void> handleSignup() async {
     if (form.touched && form.valid) {
       try {
         var user = await getIt<AuthService>().signup(
-            form.control('email').value.toString().trim(), form.control('password').value);
+            form.control('email').value.toString().trim(),
+            form.control('password').value);
         if (user != null) {
           var mxgUser = MxgUser(user.uid, 'f', 'l', null);
           getIt<UserService>().addUser(mxgUser);
@@ -36,8 +39,7 @@ class SignupPage extends StatelessWidget {
         _btnController.softError();
         getIt<NotificationService>().showSnackMessage(e.toString());
       }
-    }
-    else {
+    } else {
       _btnController.stop();
     }
   }

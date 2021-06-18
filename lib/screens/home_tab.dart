@@ -19,8 +19,8 @@ class HomeTab extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.only(top: 60, left: 10, right: 10),
         child: ConsumerRecentEntries(
-          // TODO: add skeleton loading
-        ),
+            // TODO: add skeleton loading
+            ),
       ),
     );
   }
@@ -47,7 +47,8 @@ class NoDataAvailable extends StatelessWidget {
               alignment: Alignment.centerRight,
               child: TextButton(
                 child: Text('Add weight entry'),
-                onPressed: () => getIt<NavigationService>().showWeightEntryDialog(),
+                onPressed: () =>
+                    getIt<NavigationService>().showWeightEntryDialog(),
               ),
             ),
           ],
@@ -95,26 +96,24 @@ class RecentEntries extends StatelessWidget {
 }
 
 class ConsumerRecentEntries extends StatelessWidget {
-
   ConsumerRecentEntries({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<List<WeightEntry>>(
-        builder: (context, snapshot, child) {
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              TextTitle(text: 'Recent'),
-              snapshot.isEmpty
-                  ? NoDataAvailable()
-                  : WeightEntryList(
-                entries: snapshot,
-              ),
-            ],
-          );
-        });
+    return Consumer<List<WeightEntry>>(builder: (context, snapshot, child) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          TextTitle(text: 'Recent'),
+          snapshot.isEmpty
+              ? NoDataAvailable()
+              : WeightEntryList(
+                  entries: snapshot,
+                ),
+        ],
+      );
+    });
   }
 }
 
@@ -148,15 +147,15 @@ class AnimatedRecentEntries extends StatelessWidget {
         initialData.isEmpty
             ? NoDataAvailable()
             : AnimatedStreamList<WeightEntry>(
-    streamList: _stream,
-    initialList: initialData,
-    shrinkWrap: true,
-    scrollPhysics: NeverScrollableScrollPhysics(),
-    equals: (a, b) => equal(a, b),
-    itemBuilder: (item, index, context, animation) =>
-    _createTile(item, animation),
-    itemRemovedBuilder: (item, index, context, animation) =>
-    _createTile(item, animation)),
+                streamList: _stream,
+                initialList: initialData,
+                shrinkWrap: true,
+                scrollPhysics: NeverScrollableScrollPhysics(),
+                equals: (a, b) => equal(a, b),
+                itemBuilder: (item, index, context, animation) =>
+                    _createTile(item, animation),
+                itemRemovedBuilder: (item, index, context, animation) =>
+                    _createTile(item, animation)),
       ],
     );
   }

@@ -10,7 +10,8 @@ class MxgUser {
   final String lastName;
   final Reminder? reminder;
 
-  MxgUser(this.id, this.firstName, this.lastName, this. reminder);
-  factory MxgUser.fromJson(Map<String, dynamic> json) => _$MxgUserFromJson(json);
+  MxgUser(this.id, this.firstName, this.lastName, this.reminder);
+  factory MxgUser.fromJson(Map<String, dynamic> json) =>
+      _$MxgUserFromJson(json);
   Map<String, dynamic> toJson() => _$MxgUserToJson(this);
 }

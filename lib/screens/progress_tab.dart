@@ -82,13 +82,14 @@ class ProgressChart extends StatelessWidget {
       barWidth: 4,
       isStrokeCapRound: true,
       dotData: FlDotData(
-        show: true,
-        getDotPainter:(FlSpot spot, double xPercentage, LineChartBarData bar, int index) => FlDotCirclePainter(
-          radius: 3,
-          color: Colors.teal,
-          strokeColor: Colors.teal,
-        )
-      ),
+          show: true,
+          getDotPainter: (FlSpot spot, double xPercentage, LineChartBarData bar,
+                  int index) =>
+              FlDotCirclePainter(
+                radius: 3,
+                color: Colors.teal,
+                strokeColor: Colors.teal,
+              )),
       belowBarData: BarAreaData(
         show: false,
       ),

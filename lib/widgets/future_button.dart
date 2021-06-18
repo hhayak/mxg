@@ -9,7 +9,7 @@ extension SoftState on RoundedLoadingButtonController {
 
   void softSuccess([int delaySeconds = 1]) {
     success();
-    Future.delayed(Duration(seconds: delaySeconds),() => stop());
+    Future.delayed(Duration(seconds: delaySeconds), () => stop());
   }
 }
 

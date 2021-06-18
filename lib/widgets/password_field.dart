@@ -50,7 +50,9 @@ class _PasswordFieldState extends State<PasswordField> {
       decoration: InputDecoration(
         hintText: 'Password',
         suffixIcon: IconButton(
-          icon: Icon(_obscureText ? Icons.visibility : Icons.visibility_off,),
+          icon: Icon(
+            _obscureText ? Icons.visibility : Icons.visibility_off,
+          ),
           onPressed: toggleObscureText,
         ),
       ),

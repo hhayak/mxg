@@ -57,8 +57,14 @@ class FlatCard extends StatelessWidget {
             borderRadius: BorderRadius.all(Radius.circular(8)),
             border: Border.all(color: borderColor),
             color: fillColor,
-            boxShadow: elevated ? [BoxShadow(
-                color: Colors.grey.withOpacity(0.5), spreadRadius: 0.5, blurRadius: 3)] : null,
+            boxShadow: elevated
+                ? [
+                    BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 0.5,
+                        blurRadius: 3)
+                  ]
+                : null,
           ),
           child: child,
         ),
