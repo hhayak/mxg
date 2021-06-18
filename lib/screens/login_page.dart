@@ -19,10 +19,8 @@ class _LoginPageState extends State<LoginPage> {
   late RoundedLoadingButtonController _btnController;
 
   late FormGroup form = FormGroup({
-    'email': FormControl<String>(
-        validators: [Validators.required]),
-    'password': FormControl<String>(
-        validators: [Validators.required]),
+    'email': FormControl<String>(validators: [Validators.required]),
+    'password': FormControl<String>(validators: [Validators.required]),
   });
 
   @override
@@ -58,8 +56,7 @@ class _LoginPageState extends State<LoginPage> {
           _btnController.success();
           getIt<NavigationService>().push(Routes.home, clear: true);
         }
-      }
-      else {
+      } else {
         _btnController.stop();
       }
     } catch (e) {
@@ -141,7 +138,11 @@ class _LoginPageState extends State<LoginPage> {
                               getIt<NavigationService>().push(Routes.signup);
                             },
                             child: Text('Create Account'),
-                          )
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text(String.fromEnvironment('env')),
                         ],
                       ),
                     ),
