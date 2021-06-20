@@ -28,19 +28,27 @@ jobs:
           # flutter-version: '1.12.x' # you can also specify exact version of flutter
 
       # Get flutter dependencies.
-      - run: flutter pub get
+      - name: Get Flutter dependecies.
+        run: flutter pub get
 
       # Check for any formatting issues in the code.
-      - run: flutter format --set-exit-if-changed .
+      - name: Check for any formatting issues in the code.
+        run: flutter format --set-exit-if-changed .
 
       # Statically analyze the Dart code for any errors.
-      - run: flutter analyze .
+      - name: Flutter analyze.
+        run: flutter analyze .
 
       # Run widget tests for our flutter project.
-      - run: flutter test
+      - name: Flutter test.
+        run: |
+          cd firebase
+          npm install -g firebase-tools
+          firebase emulators:exec test.sh
 
       # Build apk.
-      - run: flutter build apk  --dart-define=env=prod
+      - name:  Build apk.
+        run: flutter build apk  --dart-define=env=prod
 
       # Upload generated apk to the artifacts.
       - uses: actions/upload-artifact@v1
