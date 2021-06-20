@@ -20,6 +20,9 @@ jobs:
       - uses: actions/setup-java@v1
         with:
           java-version: '12.x'
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
 
       # Setup the flutter environment.
       - uses: subosito/flutter-action@v1
