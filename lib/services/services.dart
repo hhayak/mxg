@@ -31,6 +31,8 @@ Future<void> initServices(String env) async {
   getIt.registerSingleton<WeightEntryService>(
       WeightEntryService(FirebaseFirestore.instance));
 
+  await getIt<AuthService>().reload();
+
   getIt<AuthService>().authChanges().listen((user) {
     if (user != null) {
       print('Binding WeightEntryService to ${user.uid}');
