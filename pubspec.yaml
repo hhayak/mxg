@@ -28,8 +28,8 @@ dependencies:
   intl: ^0.17.0
   cupertino_icons: ^1.0.3
   get_it: ^7.1.3
-  firebase_core: ^1.2.1
-  firebase_auth: ^1.3.0
+  firebase_core: ^1.3.0
+  firebase_auth: ^1.4.1
   cloud_firestore: ^2.2.2
   reactive_forms: ^10.4.1
   rounded_loading_button: ^2.0.5
@@ -37,7 +37,7 @@ dependencies:
   animated_stream_list:
     git:
       url: https://github.com/hhayak/animated-stream-list
-  fl_chart: ^0.36.1
+  fl_chart: ^0.36.2
   provider: ^5.0.0
   awesome_notifications: ^0.0.6+9
 
