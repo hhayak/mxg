@@ -11,6 +11,7 @@ Reminder _$ReminderFromJson(Map<String, dynamic> json) {
     json['id'] as int,
     _$enumDecode(_$FrequencyEnumMap, json['frequency']),
     Reminder.timeFromJson(json['time'] as Map<String, dynamic>),
+    json['weekday'] as int?,
   );
 }
 
@@ -18,6 +19,7 @@ Map<String, dynamic> _$ReminderToJson(Reminder instance) => <String, dynamic>{
       'id': instance.id,
       'frequency': _$FrequencyEnumMap[instance.frequency],
       'time': Reminder.timeToJson(instance.time),
+      'weekday': instance.weekday,
     };
 
 K _$enumDecode<K, V>(

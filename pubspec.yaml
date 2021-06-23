@@ -40,6 +40,7 @@ dependencies:
   fl_chart: ^0.36.2
   provider: ^5.0.0
   awesome_notifications: ^0.0.6+9
+  get: ^4.1.4
 
 
 dev_dependencies:

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mxg/models/mxg_user.dart';
 import 'package:mxg/routes.dart';
-import 'package:mxg/services/all_services.dart';
 import 'package:mxg/services/services.dart';
 import 'package:mxg/services/user_service.dart';
 import 'package:mxg/widgets/future_button.dart';
@@ -47,27 +46,12 @@ class SignupPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: ReactiveFormBuilder(
-          form: () => form,
-          builder: (context, form, child) => Container(
-            width: 300,
-            height: 400,
-            padding: const EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(
-                Radius.circular(10),
-              ),
-              color: Theme.of(context).primaryColor,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey,
-                  spreadRadius: 1,
-                  blurRadius: 8,
-                )
-              ],
-            ),
-            child: Center(
+      body: Padding(
+        padding: const EdgeInsets.all(8),
+        child: Center(
+          child: ReactiveFormBuilder(
+            form: () => form,
+            builder: (context, form, child) => Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
@@ -107,6 +91,7 @@ class SignupPage extends StatelessWidget {
                     textInputAction: TextInputAction.done,
                     validationMessages: (fc) => {
                       ValidationMessage.required: 'This field is required.',
+                      ValidationMessage.mustMatch: 'Passwords must match.',
                     },
                   ),
                   SizedBox(

@@ -86,7 +86,7 @@ class WeightEntryTile extends StatelessWidget {
           Text('${entry.date.day}/${entry.date.month}/${entry.date.year}'),
         ],
       ),
-      color: Colors.white,
+      color: Theme.of(context).primaryColor,
       elevated: true,
       onTap: () => showModalSheet(context),
     );

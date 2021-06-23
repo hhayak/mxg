@@ -48,7 +48,7 @@ class _PasswordFieldState extends State<PasswordField> {
       onSubmitted: widget.onSubmitted,
       keyboardType: TextInputType.visiblePassword,
       decoration: InputDecoration(
-        hintText: 'Password',
+        hintText: widget.hintText,
         suffixIcon: IconButton(
           icon: Icon(
             _obscureText ? Icons.visibility : Icons.visibility_off,

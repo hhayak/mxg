@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mxg/routes.dart';
-import 'package:mxg/services/all_services.dart';
 import 'package:mxg/services/services.dart';
 import 'package:mxg/widgets/future_button.dart';
 import 'package:mxg/widgets/password_field.dart';
@@ -17,6 +16,7 @@ class _LoginPageState extends State<LoginPage> {
   late bool _obscureText;
   late Future<User?> _checkSessionFuture;
   late RoundedLoadingButtonController _btnController;
+  static const String env = String.fromEnvironment('env');
 
   late FormGroup form = FormGroup({
     'email': FormControl<String>(validators: [Validators.required]),
@@ -68,93 +68,76 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: FutureBuilder<User?>(
-        future: _checkSessionFuture,
-        builder: (context, snapshot) {
-          if (snapshot.hasError) {
-            return Center(
-              child: Text('Error initializing app.'),
-            );
-          }
-          if (snapshot.connectionState == ConnectionState.done) {
-            if (snapshot.data == null) {
+      body: Padding(
+        padding: const EdgeInsets.all(8),
+        child: FutureBuilder<User?>(
+          future: _checkSessionFuture,
+          builder: (context, snapshot) {
+            if (snapshot.hasError) {
+              return Center(
+                child: Text('Error initializing app.'),
+              );
+            }
+            if (snapshot.connectionState == ConnectionState.done && snapshot.data == null) {
               return Center(
                 child: ReactiveFormBuilder(
                   form: () => form,
-                  builder: (context, form, child) => Container(
-                    width: 300,
-                    height: 400,
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10),
-                      ),
-                      color: Theme.of(context).primaryColor,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey,
-                          spreadRadius: 1,
-                          blurRadius: 8,
-                        )
+                  builder: (context, form, child) => Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        ReactiveTextField(
+                          formControlName: 'email',
+                          showErrors: (fc) => false,
+                          textInputAction: TextInputAction.next,
+                          keyboardType: TextInputType.emailAddress,
+                          decoration: InputDecoration(
+                            hintText: 'Email',
+                          ),
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        PasswordField(
+                          formControlName: 'password',
+                          showErrors: false,
+                          hintText: 'Password',
+                          textInputAction: TextInputAction.done,
+                        ),
+                        SizedBox(
+                          height: 30,
+                        ),
+                        FutureButton(
+                          controller: _btnController,
+                          onPressed: handleLogin,
+                          text: 'Login',
+                        ),
+                        SizedBox(
+                          height: 100,
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            getIt<NavigationService>().push(Routes.signup);
+                          },
+                          child: Text('Create Account'),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(env),
                       ],
-                    ),
-                    child: Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          ReactiveTextField(
-                            formControlName: 'email',
-                            showErrors: (fc) => false,
-                            textInputAction: TextInputAction.next,
-                            keyboardType: TextInputType.emailAddress,
-                            decoration: InputDecoration(
-                              hintText: 'Email',
-                            ),
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          PasswordField(
-                            formControlName: 'password',
-                            showErrors: false,
-                            hintText: 'Password',
-                            textInputAction: TextInputAction.done,
-                          ),
-                          SizedBox(
-                            height: 30,
-                          ),
-                          FutureButton(
-                            controller: _btnController,
-                            onPressed: handleLogin,
-                            text: 'Login',
-                          ),
-                          SizedBox(
-                            height: 100,
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              getIt<NavigationService>().push(Routes.signup);
-                            },
-                            child: Text('Create Account'),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Text(String.fromEnvironment('env')),
-                        ],
-                      ),
                     ),
                   ),
                 ),
               );
             }
-          }
-          return Center(
-            child: CircularProgressIndicator(),
-          );
-        },
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          },
+        ),
       ),
     );
   }

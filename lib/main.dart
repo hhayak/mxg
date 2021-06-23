@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:mxg/constants/theme.dart';
 import 'package:mxg/screens/login_page.dart';
-import 'package:mxg/services/all_services.dart';
 import 'package:mxg/services/services.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  const String env = String.fromEnvironment('env', defaultValue: 'prod');
+  const String env = String.fromEnvironment('env', defaultValue: 'dev');
   await initServices(env);
   runApp(MyApp());
 }

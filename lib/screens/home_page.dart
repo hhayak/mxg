@@ -4,7 +4,6 @@ import 'package:mxg/routes.dart';
 import 'package:mxg/screens/home_tab.dart';
 import 'package:mxg/screens/profile_tab.dart';
 import 'package:mxg/screens/progress_tab.dart';
-import 'package:mxg/services/all_services.dart';
 import 'package:mxg/services/services.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
@@ -36,18 +35,13 @@ class _HomePageState extends State<HomePage> {
       child: PersistentTabView(
         context,
         controller: _tabController,
+        backgroundColor: Theme.of(context).primaryColor,
         screenTransitionAnimation:
             ScreenTransitionAnimation(animateTabTransition: true),
         screens: [
-          Center(
-            child: HomeTab(),
-          ),
-          Center(
-            child: ProgressTab(),
-          ),
-          Center(
-            child: ProfileTab(),
-          ),
+          HomeTab(),
+          ProgressTab(),
+          ProfileTab(),
         ],
         items: [
           PersistentBottomNavBarItem(

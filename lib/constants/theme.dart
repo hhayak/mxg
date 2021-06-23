@@ -22,6 +22,7 @@ final darkTheme = ThemeData(
   buttonColor: Colors.teal,
   elevatedButtonTheme: elevatedButtonTheme,
   outlinedButtonTheme: outlinedButtonTheme,
+  textButtonTheme: textButtonThemeDark,
 );
 
 final inputDecorationTheme = InputDecorationTheme(
@@ -54,3 +55,5 @@ final outlinedButtonTheme = OutlinedButtonThemeData(
     ),
   ),
 );
+
+final textButtonThemeDark = TextButtonThemeData(style: TextButton.styleFrom(primary: Colors.teal[50]));

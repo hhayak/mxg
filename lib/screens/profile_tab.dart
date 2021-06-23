@@ -2,13 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:mxg/models/mxg_user.dart';
 import 'package:mxg/models/reminder.dart';
 import 'package:mxg/routes.dart';
-import 'package:mxg/services/all_services.dart';
 import 'package:mxg/services/services.dart';
+import 'package:mxg/widgets/add_reminder_dialog.dart';
 import 'package:mxg/widgets/flat_card.dart';
-import 'package:mxg/widgets/future_button.dart';
 import 'package:mxg/widgets/text_title.dart';
-import 'package:reactive_forms/reactive_forms.dart';
-import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 class ProfileTab extends StatelessWidget {
   final Future<MxgUser?> getUserFuture =
@@ -27,13 +24,15 @@ class ProfileTab extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.done) {
           return Column(
             mainAxisAlignment: MainAxisAlignment.center,
+            //crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               UserReminder(
                 reminder: snapshot.data!.reminder,
               ),
-              ElevatedButton(
+              FlatCard.filled(
                 child: Text('Logout'),
-                onPressed: handleLogout,
+                color: Colors.redAccent,
+                onTap: handleLogout,
               ),
             ],
           );
@@ -92,8 +91,7 @@ class _UserReminderState extends State<UserReminder> {
             if (hasReminder) ...{
               Padding(
                 padding: const EdgeInsets.only(top: 5),
-                child: Text(
-                    'Frequency: ${_reminder.toString()}, at ${_reminder!.time.format(context)}'),
+                child: Text(_reminder!.toStr(context)),
               )
             },
             TextButton.icon(
@@ -106,120 +104,106 @@ class _UserReminderState extends State<UserReminder> {
   }
 }
 
-class AddReminderDialog extends StatelessWidget {
-  final FormControl<Frequency> freqControl =
-      FormControl<Frequency>(value: Frequency.daily);
-  final FormControl<TimeOfDay> timeControl =
-      FormControl<TimeOfDay>(value: TimeOfDay.now());
-  final RoundedLoadingButtonController _btnController =
-      RoundedLoadingButtonController();
-
-  Future<void> handleAdd() async {
-    var reminder = Reminder(0, freqControl.value!, timeControl.value!);
-    await Future.wait([
-      getIt<UserService>().addReminder(reminder),
-      getIt<NotificationService>().setReminder(reminder),
-    ]);
-    getIt<NavigationService>().pop(reminder);
-  }
-
-  AddReminderDialog({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Dialog(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(8)),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(8),
-        child: ReactiveFormBuilder(
-          form: () => FormGroup({
-            'frequency': freqControl,
-            'time': timeControl,
-          }),
-          builder: (context, form, child) => Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Row(
-                children: [
-                  TextTitle(text: 'Add Reminder'),
-                  Spacer(),
-                  CloseButton(
-                    onPressed: () => getIt<NavigationService>().pop(null),
-                  ),
-                ],
-              ),
-              SizedBox(
-                width: 150,
-                child: ReactiveDropdownField(
-                  formControlName: 'frequency',
-                  itemHeight: 60,
-                  decoration: InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.teal),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                  items: [
-                    DropdownMenuItem<Frequency>(
-                      child: Text('Daily'),
-                      value: Frequency.daily,
-                    ),
-                    DropdownMenuItem<Frequency>(
-                      child: Text('Weekly'),
-                      value: Frequency.weekly,
-                    ),
-                    DropdownMenuItem<Frequency>(
-                      child: Text('Monthly'),
-                      value: Frequency.monthly,
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: 15),
-              ReactiveTimePicker(
-                formControlName: 'time',
-                builder: (context, picker, child) => GestureDetector(
-                  onTap: picker.showPicker,
-                  child: TimeDisplay(
-                    time: timeControl.value!,
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              FutureButton(
-                controller: _btnController,
-                onPressed: handleAdd,
-                text: 'Add',
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class TimeDisplay extends StatelessWidget {
-  final TimeOfDay time;
-
-  const TimeDisplay({Key? key, required this.time}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        FlatCard.outlined(
-            child: Text('${time.hour.toString()}H'), color: Colors.teal),
-        FlatCard.outlined(
-            child: Text('${time.minute.toString()}M'), color: Colors.teal),
-      ],
-    );
-  }
-}
+// class AddReminderDialog extends StatefulWidget {
+//   AddReminderDialog({Key? key}) : super(key: key);
+//
+//   @override
+//   _AddReminderDialogState createState() => _AddReminderDialogState();
+// }
+//
+// class _AddReminderDialogState extends State<AddReminderDialog> {
+//   final FormControl<Frequency> freqControl =
+//       FormControl<Frequency>(value: Frequency.daily);
+//
+//   final FormControl<TimeOfDay> timeControl =
+//       FormControl<TimeOfDay>(value: TimeOfDay.now());
+//
+//   final RoundedLoadingButtonController _btnController =
+//       RoundedLoadingButtonController();
+//
+//   Future<void> handleAdd() async {
+//     var reminder = Reminder(0, freqControl.value!, timeControl.value!, 1);
+//     await Future.wait([
+//       getIt<UserService>().addReminder(reminder),
+//       getIt<NotificationService>().setReminder(reminder),
+//     ]);
+//     getIt<NavigationService>().pop(reminder);
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Dialog(
+//       shape: RoundedRectangleBorder(
+//         borderRadius: BorderRadius.all(Radius.circular(8)),
+//       ),
+//       child: Padding(
+//         padding: const EdgeInsets.all(8),
+//         child: ReactiveFormBuilder(
+//           form: () => FormGroup({
+//             'frequency': freqControl,
+//             'time': timeControl,
+//           }),
+//           builder: (context, form, child) => Column(
+//             mainAxisAlignment: MainAxisAlignment.center,
+//             crossAxisAlignment: CrossAxisAlignment.center,
+//             mainAxisSize: MainAxisSize.min,
+//             children: [
+//               Row(
+//                 children: [
+//                   TextTitle(text: 'Add Reminder'),
+//                   Spacer(),
+//                   CloseButton(
+//                     onPressed: () => getIt<NavigationService>().pop(null),
+//                   ),
+//                 ],
+//               ),
+//               SizedBox(
+//                 width: 150,
+//                 child: ReactiveDropdownField(
+//                   formControlName: 'frequency',
+//                   itemHeight: 60,
+//                   decoration: InputDecoration(
+//                     enabledBorder: OutlineInputBorder(
+//                       borderSide: BorderSide(color: Colors.teal),
+//                       borderRadius: BorderRadius.circular(10),
+//                     ),
+//                   ),
+//                   items: [
+//                     DropdownMenuItem<Frequency>(
+//                       child: Text('Daily'),
+//                       value: Frequency.daily,
+//                     ),
+//                     DropdownMenuItem<Frequency>(
+//                       child: Text('Weekly'),
+//                       value: Frequency.weekly,
+//                     ),
+//                   ],
+//                 ),
+//               ),
+//               SizedBox(height: 15),
+//               WeekdayPicker(),
+//               SizedBox(height: 15),
+//               ReactiveTimePicker(
+//                 formControlName: 'time',
+//                 builder: (context, picker, child) => GestureDetector(
+//                   onTap: picker.showPicker,
+//                   child: TimeDisplay(
+//                     time: timeControl.value!,
+//                   ),
+//                 ),
+//               ),
+//               SizedBox(
+//                 height: 30,
+//               ),
+//               FutureButton(
+//                 controller: _btnController,
+//                 onPressed: handleAdd,
+//                 text: 'Add',
+//               ),
+//             ],
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }

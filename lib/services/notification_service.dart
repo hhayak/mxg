@@ -44,6 +44,7 @@ class NotificationService {
         body: 'Keep your weight tracking updated!',
       ),
       schedule: NotificationCalendar(
+        weekday: reminder.frequency == Frequency.weekly ? reminder.weekday : null,
         hour: reminder.time.hour,
         minute: reminder.time.minute,
         second: 0,

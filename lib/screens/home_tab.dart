@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mxg/models/weight_entry.dart';
 import 'package:mxg/services/services.dart';
 import 'package:mxg/services/weight_entry_service.dart';
+import 'package:mxg/utils.dart';
 import 'package:mxg/widgets/flat_card.dart';
 import 'package:mxg/widgets/text_title.dart';
 import 'package:mxg/widgets/weight_entry_list.dart';
@@ -9,9 +10,6 @@ import 'package:animated_stream_list/animated_stream_list.dart';
 import 'package:provider/provider.dart';
 
 class HomeTab extends StatelessWidget {
-  final Future<List<WeightEntry>> future =
-      getIt<WeightEntryService>().getUserWeightEntries();
-
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -31,8 +29,11 @@ class NoDataAvailable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var isLight = Utils.isLight(context);
     return FlatCard.filled(
-      color: Colors.orangeAccent.withOpacity(0.5),
+      color: isLight
+          ? Colors.orangeAccent.withOpacity(0.5)
+          : Colors.orangeAccent,
       child: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -103,14 +104,13 @@ class ConsumerRecentEntries extends StatelessWidget {
     return Consumer<List<WeightEntry>>(builder: (context, snapshot, child) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
         children: [
           TextTitle(text: 'Recent'),
           snapshot.isEmpty
               ? NoDataAvailable()
-              : WeightEntryList(
-                  entries: snapshot,
-                ),
+              : WeightEntryList(entries: snapshot),
         ],
       );
     });
