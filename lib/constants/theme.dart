@@ -56,4 +56,5 @@ final outlinedButtonTheme = OutlinedButtonThemeData(
   ),
 );
 
-final textButtonThemeDark = TextButtonThemeData(style: TextButton.styleFrom(primary: Colors.teal[50]));
+final textButtonThemeDark =
+    TextButtonThemeData(style: TextButton.styleFrom(primary: Colors.teal[50]));

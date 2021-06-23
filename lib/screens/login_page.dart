@@ -78,7 +78,8 @@ class _LoginPageState extends State<LoginPage> {
                 child: Text('Error initializing app.'),
               );
             }
-            if (snapshot.connectionState == ConnectionState.done && snapshot.data == null) {
+            if (snapshot.connectionState == ConnectionState.done &&
+                snapshot.data == null) {
               return Center(
                 child: ReactiveFormBuilder(
                   form: () => form,

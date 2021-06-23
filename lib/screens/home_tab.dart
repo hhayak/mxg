@@ -31,9 +31,8 @@ class NoDataAvailable extends StatelessWidget {
   Widget build(BuildContext context) {
     var isLight = Utils.isLight(context);
     return FlatCard.filled(
-      color: isLight
-          ? Colors.orangeAccent.withOpacity(0.5)
-          : Colors.orangeAccent,
+      color:
+          isLight ? Colors.orangeAccent.withOpacity(0.5) : Colors.orangeAccent,
       child: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
